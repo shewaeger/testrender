@@ -19,7 +19,19 @@ public:
 	void setY(float y);
 	void setZ(float z);
 	void setW(float w);
+
+	float getX() const;
+	float getY() const;
+	float getZ() const;
+	float getW() const;
+
+	bool isUnit();
+	bool isNoLength();
+	float length();
+
+	Vector3d makeUnit();
 };
 
+Vector3d operator/(Vector3d const & left, float num);
 
 #endif //TESTRENDER_VECTOR3D_H

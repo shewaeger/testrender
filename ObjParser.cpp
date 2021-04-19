@@ -25,13 +25,13 @@ RObject ObjParser::load() {
 
 	std::vector<Vertex3d> vertexes;
 	std::vector<Vector3d> normals;
-	std::vector<std::vector<std::tuple<int, int, int>>> faces;
+	std::vector<std::vector<std::tuple<long, long, long>>> facesInit;
+	std::vector<std::vector<size_t>> faces;
 
 	std::ifstream file(this->filename);
 	std::string line;
 
-	while(!file.eof()) {
-		std::getline(file, line);
+	while(std::getline(file, line)) {
 		std::smatch matches;
 
 		if(std::regex_search(line, std::regex(COMMENT_REGEX))){
@@ -67,26 +67,50 @@ RObject ObjParser::load() {
 			}
 
 			std::string data(matches[1]);
-			std::vector<std::tuple<int, int, int>> face;
+
+			// as in obj file: vertexNum, UV, normalNum
+			std::vector<std::tuple<long, long, long>> face;
 
 			while(std::regex_search(data, matches, std::regex(FACE_VERTEX_REGEX))) {
-				int vertexNum, textureNum = -1, normalNum = -1;
-				vertexNum = std::stoi(matches[1]);
-				if(matches[2].matched) {
-					textureNum = std::stoi(matches[2]);
+				long vertexNum, textureNum = 0, normalNum = 0;
+				vertexNum = std::stol(matches[1]);
+				if(matches[3].matched) {
+					textureNum = std::stoi(matches[3]);
 				}
-				if(matches[4].matched) {
-					normalNum = std::stoi(matches[4]);
+				if(matches[5].matched) {
+					normalNum = std::stoi(matches[5]);
 				}
 
 				face.emplace_back(vertexNum, textureNum, normalNum);
 				data = matches.suffix();
 			}
-			faces.push_back(face);
+			facesInit.push_back(face);
 		}
 	}
 
+	for(const auto& face : facesInit) {
+		if(face.empty()) {
+			throw std::runtime_error("Face is empty. Check file");
+		}
+		std::vector<size_t> faceNew;
+		for(const auto& tuple : face) {
+			long vertexNum, textureNum, normalNum;
+			std::tie(vertexNum, textureNum, normalNum) = tuple;
+			size_t vertexPos = vertexNum > 0 ? vertexNum - 1 : vertexes.size() + vertexNum;
+			Vertex3d &vertex = vertexes.at(vertexPos);
+			if(normalNum && vertex.getNormal().isNoLength()) {
+				size_t normalPos = normalNum > 0 ? normalNum - 1 : normals.size() + normalNum;
+				Vector3d &normal = normals.at(normalPos);
+				vertex.setNormal(normal.makeUnit());
+			}
+			faceNew.push_back(vertexNum);
+		}
+		faces.push_back(faceNew);
+	}
+
 	RObject object;
+	object.setFaces(faces);
+	object.setVertexes(vertexes);
 
 	return object;
 }

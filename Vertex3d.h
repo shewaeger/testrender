@@ -18,6 +18,8 @@ public:
 	Vertex3d(Vertex3d const &vertex);
 
 	void setNormal(Vector3d const &normal);
+
+	Vector3d& getNormal();
 };
 
 

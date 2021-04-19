@@ -17,4 +17,8 @@ void Vertex3d::setNormal(Vector3d const &normal) {
 	this->normal = normal;
 }
 
+Vector3d &Vertex3d::getNormal() {
+	return this->normal;
+}
+
 Vertex3d::Vertex3d(Vertex3d const &vertex) = default;

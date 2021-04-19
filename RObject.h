@@ -14,12 +14,14 @@ class RObject {
 private:
 	std::vector<Vertex3d> vertexes;
 
-	std::vector<int> faces;
+	std::vector<std::vector<size_t>> faces;
 
 public:
 
 	RObject();
 
+	void setVertexes(std::vector<Vertex3d> &vertexesNew);
+	void setFaces(std::vector<std::vector<size_t>> &facesNew);
 };
 
 
