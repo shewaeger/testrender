@@ -83,3 +83,7 @@ float Vector3d::getW() const {
 Vector3d operator/(Vector3d const & left, float num) {
 	return Vector3d(left.getX() / num, left.getY() / num, left.getZ() / num);
 }
+
+Vector3d operator*(Vector3d const & left, float num) {
+	return Vector3d(left.getX() * num, left.getY() * num, left.getZ() * num);
+}

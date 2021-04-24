@@ -33,5 +33,5 @@ public:
 };
 
 Vector3d operator/(Vector3d const & left, float num);
-
+Vector3d operator*(Vector3d const & left, float num);
 #endif //TESTRENDER_VECTOR3D_H

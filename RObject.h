@@ -22,6 +22,9 @@ public:
 
 	void setVertexes(std::vector<Vertex3d> &vertexesNew);
 	void setFaces(std::vector<std::vector<size_t>> &facesNew);
+	size_t getFacesCount() const;
+	std::vector<Vertex3d> getFacesVertexes(size_t n);
+	std::vector<Vertex3d> operator[](size_t n);
 };
 
 

@@ -22,3 +22,11 @@ Vector3d &Vertex3d::getNormal() {
 }
 
 Vertex3d::Vertex3d(Vertex3d const &vertex) = default;
+
+Vertex3d operator*(Vertex3d & left, float num) {
+	return Vertex3d(left.getX() * num, left.getY() * num, left.getZ() * num, left.getW(), left.getNormal());
+}
+
+Vertex3d operator/(Vertex3d & left, float num) {
+	return Vertex3d(left.getX() / num, left.getY() / num, left.getZ() / num, left.getW(), left.getNormal());
+}

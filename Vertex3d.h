@@ -22,5 +22,9 @@ public:
 	Vector3d& getNormal();
 };
 
+Vertex3d operator/(Vertex3d & left, float num);
+
+Vertex3d operator*(Vertex3d & left, float num);
+
 
 #endif //TESTRENDER_VERTEX3D_H

@@ -11,6 +11,8 @@ private:
 	float u;
 	float v;
 	float w;
+public:
+	Vector2d(float u, float v, float w) : u(u), v(v), w(w) {};
 };
 
 

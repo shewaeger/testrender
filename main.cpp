@@ -1,17 +1,19 @@
 #include "ObjParser.h"
+#include "Video.h"
 #include <SFML/Graphics.hpp>
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "it work");
 
-//	ObjParser parser("/home/shewa/notebook/projects/testrender/head.obj");
-//
-//	RObject object = parser.load();
+	auto parser = new ObjParser("/home/shewa/notebook/projects/testrender/head.obj");
+	RObject object = parser->load();
+	delete parser;
 
-	sf::Image image;
-	image.create(800, 600);
+	Video video(800, 600);
+	video.drawLinedMesh(object);
+
 	sf::Texture texture;
-	texture.loadFromImage(image);
+	texture.loadFromImage(video.getImage());
 	sf::Sprite sprite(texture);
 
 	while(window.isOpen()) {
