@@ -12,10 +12,11 @@
 class Video {
 private:
 	sf::Image image;
-	void drawLine(int x0, int y0, int x1, int y1, sf::Color &color);
+
 public:
 	explicit Video(unsigned x, unsigned y);
 	void drawLinedMesh(RObject &object);
+	void drawLine(int x0, int y0, int x1, int y1, sf::Color const &color);
 	sf::Image &getImage();
 };
 

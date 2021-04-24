@@ -78,8 +78,12 @@ RObject ObjParser::load() {
 				Vector3d &normal = normals.at(normalPos);
 				vertex.setNormal(normal.makeUnit());
 			}
-			faceNew.push_back(vertexNum);
+			faceNew.push_back(vertexPos);
 		}
+		//sort all faces to fill
+		std::sort(faceNew.begin(), faceNew.end(), [this](size_t left, size_t right) {
+			return vertexes.at(left).getY() > vertexes.at(right).getY();
+		});
 		faces.push_back(faceNew);
 	}
 

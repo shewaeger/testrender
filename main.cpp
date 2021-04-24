@@ -11,9 +11,12 @@ int main() {
 
 	Video video(800, 600);
 	video.drawLinedMesh(object);
+//	video.drawLine(1, 1, 10000, 700, sf::Color(255, 0, 0));
 
 	sf::Texture texture;
-	texture.loadFromImage(video.getImage());
+	sf::Image &image = video.getImage();
+	image.flipVertically();
+	texture.loadFromImage(image);
 	sf::Sprite sprite(texture);
 
 	while(window.isOpen()) {

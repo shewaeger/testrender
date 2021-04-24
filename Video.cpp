@@ -17,7 +17,8 @@ void Video::drawLinedMesh(RObject &object) {
 	}
 }
 
-void Video::drawLine(int x0, int y0, int x1, int y1, sf::Color &color) {
+void Video::drawLine(int x0, int y0, int x1, int y1, sf::Color const &color) {
+	auto size = image.getSize();
 	bool steep = false;
 	if (std::abs(x0-x1)< std::abs(y0-y1)) {
 		std::swap(x0, y0);
@@ -34,7 +35,7 @@ void Video::drawLine(int x0, int y0, int x1, int y1, sf::Color &color) {
 	int error2 = 0;
 	int y = y0;
 	for (int x=x0; x<=x1; x++) {
-		if(y >= 0 && x >= 0) {
+		if(y >= 0 && x >= 0 && x <= size.x && y <= size.y) {
 			if (steep) {
 				image.setPixel(y, x, color);
 			} else {
