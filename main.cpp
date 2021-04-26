@@ -10,8 +10,9 @@ int main() {
 	delete parser;
 
 	Video video(800, 600);
-	video.drawLinedMesh(object);
-//	video.drawLine(1, 1, 10000, 700, sf::Color(255, 0, 0));
+
+	video.setLightDirection(Vector3d(1, 1, 1));
+	video.drawRasterizedMesh(object, sf::Color(255, 0, 0));
 
 	sf::Texture texture;
 	sf::Image &image = video.getImage();

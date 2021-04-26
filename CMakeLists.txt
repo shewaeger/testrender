@@ -16,6 +16,6 @@ add_executable(testrender
         RObject.h
         defines.h
         Vector2d.cpp
-        Vector2d.h Video.cpp Video.h)
+        Vector2d.h Video.cpp Video.h Matrix4x4.cpp Matrix4x4.h)
 
 target_link_libraries(testrender sfml-window sfml-system sfml-graphics)

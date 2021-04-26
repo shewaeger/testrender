@@ -27,11 +27,15 @@ public:
 
 	bool isUnit();
 	bool isNoLength();
-	float length();
+	float length() const;
 
-	Vector3d makeUnit();
+	Vector3d makeUnit() const ;
 };
 
+Vector3d operator+(Vector3d const &left, Vector3d const &right);
+Vector3d operator-(Vector3d const &left, Vector3d const &right);
+Vector3d operator^(Vector3d const &left, Vector3d const &right);
 Vector3d operator/(Vector3d const & left, float num);
 Vector3d operator*(Vector3d const & left, float num);
+float operator*(Vector3d const & left, Vector3d const & right);
 #endif //TESTRENDER_VECTOR3D_H

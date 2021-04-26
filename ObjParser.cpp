@@ -82,7 +82,7 @@ RObject ObjParser::load() {
 		}
 		//sort all faces to fill
 		std::sort(faceNew.begin(), faceNew.end(), [this](size_t left, size_t right) {
-			return vertexes.at(left).getY() > vertexes.at(right).getY();
+			return vertexes.at(left).getY() < vertexes.at(right).getY();
 		});
 		faces.push_back(faceNew);
 	}
