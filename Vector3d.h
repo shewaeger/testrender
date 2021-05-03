@@ -25,8 +25,8 @@ public:
 	float getZ() const;
 	float getW() const;
 
-	bool isUnit();
-	bool isNoLength();
+	bool isUnit() const;
+	bool isNoLength() const;
 	float length() const;
 
 	Vector3d makeUnit() const ;

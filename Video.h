@@ -24,7 +24,7 @@ public:
 
 	void drawLine(Vertex3d const &begin, Vertex3d const &end, sf::Color const &color);
 
-	void drawTriangle(std::vector<Vertex3d> const &face, sf::Color const &color);
+	void drawTriangle(const std::vector<Vertex3d> &face, float zBuffer[], size_t zBufferSize, sf::Color const &color);
 
 	void drawRasterizedMesh(RObject &object, sf::Color const &color);
 

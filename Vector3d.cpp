@@ -47,11 +47,11 @@ Vector3d &Vector3d::operator=(Vector3d const &vector) {
 	return *this;
 }
 
-bool Vector3d::isUnit() {
+bool Vector3d::isUnit() const {
 	return fabsf(length() - 1) < PRECISION;
 }
 
-bool Vector3d::isNoLength() {
+bool Vector3d::isNoLength() const {
 	return this->x == 0 && this->y == 0 && this->z == 0;
 }
 

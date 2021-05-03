@@ -1,8 +1,10 @@
 #include "ObjParser.h"
 #include "Video.h"
+#include "Matrix4x4.h"
 #include <SFML/Graphics.hpp>
 
 int main() {
+
 	sf::RenderWindow window(sf::VideoMode(800, 600), "it work");
 
 	auto parser = new ObjParser("/home/shewa/notebook/projects/testrender/head.obj");
@@ -11,12 +13,12 @@ int main() {
 
 	Video video(800, 600);
 
-	video.setLightDirection(Vector3d(1, 1, 1));
+	video.setLightDirection(Vector3d(0, 0, 1));
 	video.drawRasterizedMesh(object, sf::Color(255, 0, 0));
 
 	sf::Texture texture;
 	sf::Image &image = video.getImage();
-	image.flipVertically();
+//	image.flipVertically();
 	texture.loadFromImage(image);
 	sf::Sprite sprite(texture);
 

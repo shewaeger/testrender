@@ -12,14 +12,14 @@ class Vertex3d : public Vector3d{
 	Vector3d normal;
 public:
 	Vertex3d();
-
+	Vertex3d(Vector3d const &vertex, Vector3d const &normal = Vector3d());
 	Vertex3d(float x, float y, float z, float w = 1, Vector3d const &normal = Vector3d());
 
 	Vertex3d(Vertex3d const &vertex);
 
 	void setNormal(Vector3d const &normal);
 
-	Vector3d& getNormal();
+	const Vector3d & getNormal() const;
 };
 
 Vertex3d operator/(Vertex3d & left, float num);

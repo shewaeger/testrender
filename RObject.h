@@ -8,6 +8,7 @@
 
 #include <vector>
 #include "Vertex3d.h"
+#include "Matrix4x4.h"
 
 class RObject {
 
@@ -25,6 +26,8 @@ public:
 	size_t getFacesCount() const;
 	std::vector<Vertex3d> getFacesVertexes(size_t n);
 	std::vector<Vertex3d> operator[](size_t n);
+
+	void convert(Matrix4x4 const &matrix);
 };
 
 

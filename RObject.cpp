@@ -39,4 +39,10 @@ std::vector<Vertex3d> RObject::operator[](size_t n) {
 	return this->getFacesVertexes(n);
 }
 
+void RObject::convert(Matrix4x4 const &matrix) {
+	for(size_t i = 0; i < vertexes.size(); i++){
+		vertexes[i] = matrix * vertexes[i];
+	}
+}
+
 

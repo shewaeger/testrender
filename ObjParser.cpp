@@ -8,6 +8,8 @@
 #include "ObjParser.h"
 #include "Logger.hpp"
 
+#define EMPTY_CHARACTERS " \t\n\r"
+
 ObjParser::ObjParser(const char *filename) {
 	this->filename = filename;
 }
@@ -106,12 +108,12 @@ bool ObjParser::testFile() {
 }
 
 ObjParser::NodeType ObjParser::getNodeType(std::string const &str) {
-	size_t nodeNameStartPos = str.find_first_not_of(" \t");
+	size_t nodeNameStartPos = str.find_first_not_of(EMPTY_CHARACTERS);
 	if (nodeNameStartPos == std::string::npos || str[nodeNameStartPos] == '#') {
 		return NodeType::ignore;
 	}
 
-	size_t nodeNameEndPos = str.find_first_of(" \t", nodeNameStartPos);
+	size_t nodeNameEndPos = str.find_first_of(EMPTY_CHARACTERS, nodeNameStartPos);
 	if (nodeNameEndPos == std::string::npos) {
 		return NodeType::unknown;
 	}
@@ -151,17 +153,17 @@ ObjParser::NodeType ObjParser::getNodeType(std::string const &str) {
 }
 
 std::string ObjParser::substrArguments(std::string const &str) {
-	size_t nodeNameStartPos = str.find_first_not_of(" \t");
+	size_t nodeNameStartPos = str.find_first_not_of(EMPTY_CHARACTERS);
 	if (nodeNameStartPos == std::string::npos || str[nodeNameStartPos] == '#') {
 		throw std::invalid_argument("Not possible to load arguments from string");
 	}
 
-	size_t nodeNameEndPos = str.find_first_of(" \t", nodeNameStartPos);
+	size_t nodeNameEndPos = str.find_first_of(EMPTY_CHARACTERS, nodeNameStartPos);
 	if (nodeNameEndPos == std::string::npos) {
 		throw std::invalid_argument("Not possible to load arguments from string");
 	}
 
-	size_t argsStart = str.find_first_not_of(" \t", nodeNameEndPos);
+	size_t argsStart = str.find_first_not_of(EMPTY_CHARACTERS, nodeNameEndPos);
 
 	return str.substr(argsStart);
 }
@@ -176,10 +178,11 @@ bool ObjParser::generateVertex(std::string const &str) {
 		posGlobal += pos;
 		y = std::stof(str.substr(posGlobal), &pos);
 		posGlobal += pos;
-		z = std::stof(str.substr(posGlobal));
-
-		if(pos < str.size() && str.find_first_not_of(" \t", pos) != std::string::npos) {
-			w = std::stof(str.substr(pos));
+		z = std::stof(str.substr(posGlobal), &pos);
+		posGlobal += pos;
+		if(pos < str.size() && str.find_first_not_of(EMPTY_CHARACTERS, posGlobal) != std::string::npos) {
+			std::string t = str.substr(posGlobal);
+			w = std::stof(t);
 		}
 
 		vertexes.emplace_back(x, y, z, w);
@@ -201,7 +204,7 @@ bool ObjParser::generateFace(std::string const &str) {
 	std::vector<std::tuple<long, long, long>> face;
 
 	while (pointStart != std::string::npos) {
-		size_t pointEnd = str.find_first_of(" \t", pointStart);
+		size_t pointEnd = str.find_first_of(EMPTY_CHARACTERS, pointStart);
 		if(pointEnd == std::string::npos)
 			pointEnd = str.size();
 
@@ -223,7 +226,7 @@ bool ObjParser::generateFace(std::string const &str) {
 			}
 		}
 		face.emplace_back(vertex, texture, normal);
-		pointStart = str.find_first_not_of(" \t", pointEnd);
+		pointStart = str.find_first_not_of(EMPTY_CHARACTERS, pointEnd);
 		pointNum++;
 	}
 
